@@ -20,6 +20,9 @@ let map;
     //  requestUnicorn
     //      make the POST request to the server
     requestUnicorn(pickupLocation) {
+        const colorSelect = document.getElementById('color-select');
+        const color = colorSelect.options[colorSelect.selectedIndex].value;
+        requestData.Color = color;
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/ride',
