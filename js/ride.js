@@ -19,31 +19,28 @@ let map;
 
     //  requestUnicorn
     //      make the POST request to the server
-    function requestUnicorn(pickupLocation) {
-    const colorSelect = document.getElementById('color-select');
-    const color = colorSelect.options[colorSelect.selectedIndex].value;
-    $.ajax({
-        method: 'POST',
-        url: _config.api.invokeUrl + '/ride',
-        headers: {
-            Authorization: authToken
-        },
-        data: JSON.stringify({
-            PickupLocation: {
-                Latitude: pickupLocation.latitude,
-                Longitude: pickupLocation.longitude
+    requestUnicorn(pickupLocation) {
+        $.ajax({
+            method: 'POST',
+            url: _config.api.invokeUrl + '/ride',
+            headers: {
+                Authorization: authToken
             },
-            Color: color
-        }),
-        contentType: 'application/json',
-        success: result => completeRequest(result, pickupLocation),
-        error: function ajaxError(jqXHR, textStatus, errorThrown) {
-            console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
-            console.error('Response: ', jqXHR.responseText);
-            alert('An error occurred when requesting your unicorn:\n' + jqXHR.responseText);
-        }
-    });
-}
+            data: JSON.stringify({
+                PickupLocation: {
+                    Latitude: pickupLocation.latitude,
+                    Longitude: pickupLocation.longitude
+                }
+            }),
+            contentType: 'application/json',
+            success: result => completeRequest(result, pickupLocation),
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occurred when requesting your unicorn:\n' + jqXHR.responseText);
+            }
+        });
+    }
 
 
     //  completeRequest
